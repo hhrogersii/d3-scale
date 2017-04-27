@@ -51,7 +51,7 @@ tape("band.step() returns the distance between the starts of adjacent bands", fu
   test.equal(s.domain(["foo", "bar"]).step(), 480);
   test.equal(s.domain(["foo", "bar", "baz"]).step(), 320);
   s.padding(0.5);
-  test.equal(s.domain(["foo"]).step(), 640);
+  test.equal(s.domain(["foo"]).step(), 960);
   test.equal(s.domain(["foo", "bar"]).step(), 384);
   test.end();
 });
@@ -88,12 +88,12 @@ tape("band.domain([value]) computes a reasonable singleton band, even with paddi
   test.equal(s.step(), 960);
   test.equal(s.bandwidth(), 960);
   s.padding(0.5);
+  test.equal(s("foo"), 240);
+  test.equal(s.step(), 720);
+  test.equal(s.bandwidth(), 480);
+  s.padding(1);
   test.equal(s("foo"), 320);
   test.equal(s.step(), 640);
-  test.equal(s.bandwidth(), 320);
-  s.padding(1);
-  test.equal(s("foo"), 480);
-  test.equal(s.step(), 480);
   test.equal(s.bandwidth(), 0);
   test.end();
 });

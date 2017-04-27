@@ -22,8 +22,9 @@ export default function band() {
         stop = range[1 - reverse];
     step = (stop - start) / Math.max(1, n - paddingInner + paddingOuter * 2);
     if (round) step = Math.floor(step);
-    start += (stop - start - step * (n - paddingInner)) * align;
-    bandwidth = step * (1 - paddingInner);
+    // Suppress paddingInner if domain length is 1
+    start += (stop - start - step * (n - (n > 1 ? paddingInner : 0))) * align;
+    bandwidth = step * (1 - (n > 1 ? paddingInner : 0));
     if (round) start = Math.round(start), bandwidth = Math.round(bandwidth);
     var values = sequence(n).map(function(i) { return start + step * i; });
     return ordinalRange(reverse ? values.reverse() : values);
